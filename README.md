@@ -1,1 +1,18 @@
-# ToyProject_NaverPay
+<br/>
+
+### 스프링 토이프로젝트 네이버페이 <br/><br/>
+> 제출자 - 최은빈.  
+> ```자세한 공지사항은 프로젝트 설명서 확인```
+
+
+- [프로젝트 설명서](https://echoiing-fastcampus-backend.notion.site/2-Naver-Pay-bfae0ebca18a4c20a352e63e00289fc1)
+      
+- 제출방법
+    - 조 번호 이름으로 ````branch````를 생성하여 ````push````후 ````pull request```` 작성
+        - 예시
+            - branch 이름 - ````Team#1````
+            - commit 메시지 - ````Spring Toy Project upload by Team#1````
+    - pull request는 본인이 하고 싶은 말이나 질문을 적어주세요.
+        - ````코드리뷰 빡세게 부탁드립니다.```` ````클린한 코드인지 봐주세요.```` ````이 코드의 조금 더 나은 방법이 있을까요.````
+        - ````~~번 문제 풀지 못했습니다.```` ````~~번 문제 풀이 방법을 알려주시면 감사하겠습니다.````
+        - ````결과는 나왔는데 맞는지 모르겠습니다.````
