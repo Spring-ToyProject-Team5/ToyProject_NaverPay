@@ -1,9 +1,6 @@
 package org.example.members.entity;
 
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 
 @Getter
 public class Member {
