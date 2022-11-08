@@ -1,4 +1,4 @@
-package org.example.members.database;
+package org.example.shopping.database;
 
 import java.sql.*;
 
@@ -11,6 +11,8 @@ public class JDBCMgr { // h2 DB 연결
         try {
             DriverManager.registerDriver(new org.h2.Driver());
             conn = DriverManager.getConnection("jdbc:h2:~/JDBC", "sa", "");
+            //DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jisu?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul", "root", "jisunowh11@");
         } catch (SQLException e) {
             e.printStackTrace();
         }
