@@ -1,6 +1,8 @@
 package org.example.shopping.dao;
 
+
 import org.example.shopping.database.JDBCMgr;
+import org.example.shopping.dto.ShopListDTO;
 import org.example.shopping.dto.ShopListDetailDTO;
 import org.example.shopping.entity.Payment;
 import org.example.shopping.entity.Product;
@@ -16,6 +18,7 @@ import java.util.List;
 @Repository
 public class PaymentDAO {
 
+    private static PaymentDAO paymentDAO = null;
     private Connection conn = null;
     private PreparedStatement stmt = null;
     private ResultSet rs = null;
@@ -23,31 +26,38 @@ public class PaymentDAO {
 
     private static final String PAYMENT_SELECT = "select * from payment where pmId = ?";
     private static final String PAYMENT_DELETE = "delete from payment where pmId = ?";
+    private static final String PAYMENT_SELECT_ALL = "select * from payment join product on product.pId = payment.pId order by paymentDate DESC";
     private static final String PRODUCT_SELECT = "select * from product where pId = ?";
-    private static final String SHOPLIST_DETAIL ="SELECT *\n" +
-                                                                                        "from payment\n" +
-                                                                                        "join product\n" +
-                                                                                        "on product.pId = payment.pId\n" +
-                                                                                        "where pmId = ?";
+    private static final String SHOPPING_SEARCH_PERIOD = "select * from payment join product on product.pId = payment.pId where paymentDate between ? and ? order by paymentDate DESC";
+    private static final String SHOPPING_SEARCH_PERIOD_METHOD = "select * from payment join product on product.pId = payment.pId where (paymentDate between ? and ?) and (paymentMethod = ?) order by paymentDate DESC";
+    private static final String SHOPLIST_DETAIL = "SELECT *\n" +
+            "from payment\n" +
+            "join product\n" +
+            "on product.pId = payment.pId\n" +
+            "where pmId = ?";
 
-    private static final String SHOPLIST_SELECT_ALL ="SELECT *\n" +
-                                                                                                "from payment\n" +
-                                                                                                "join product\n" +
-                                                                                                "on product.pId = payment.pId\n" +
-                                                                                                "where uId = ?";
+    private static final String SHOPLIST_SELECT_ALL = "SELECT *\n" +
+            "from payment\n" +
+            "join product\n" +
+            "on product.pId = payment.pId\n" +
+            "where uId = ?";
 
     private static final String USER_PAYMENT = "select * from payment where uId = ? ";
 
-    public PaymentDAO() {
-        System.out.println("PaymentDAO()");
+    public static PaymentDAO getInstance() {
+        if (paymentDAO == null) {
+            paymentDAO = new PaymentDAO();
+        }
+        return paymentDAO;
     }
+
 
     public Payment paymentSelect(int pmId) {
         Payment payment = null;
         try {
             conn = JDBCMgr.getConnection();
             stmt = conn.prepareStatement(PAYMENT_SELECT);
-            stmt.setInt(1,pmId);
+            stmt.setInt(1, pmId);
 
             rs = stmt.executeQuery();
             if (rs.next()) {
@@ -63,9 +73,9 @@ public class PaymentDAO {
                 int usePoint = rs.getInt("usePoint");
 
 
-                payment =  new Payment(pmId, uId, pId, cardName
-                        , cardNum, paymentMethod,paymentDate,progress
-                        ,productNum,savedPoint,usePoint);
+                payment = new Payment(pmId, uId, pId, cardName
+                        , cardNum, paymentMethod, paymentDate, progress
+                        , productNum, savedPoint, usePoint);
 
             }
 
@@ -82,7 +92,7 @@ public class PaymentDAO {
         try {
             conn = JDBCMgr.getConnection();
             stmt = conn.prepareStatement(PRODUCT_SELECT);
-            stmt.setInt(1,pId);
+            stmt.setInt(1, pId);
 
             rs = stmt.executeQuery();
             if (rs.next()) {
@@ -92,7 +102,7 @@ public class PaymentDAO {
                 String pCompany = rs.getString("pCompany");
                 String pCompanyPhone = rs.getString("pCompanyPhone");
 
-                product =  new Product(pId, pName, pPrice, pCompany, pCompanyPhone);
+                product = new Product(pId, pName, pPrice, pCompany, pCompanyPhone);
 
             }
 
@@ -122,13 +132,13 @@ public class PaymentDAO {
         return res;
     }
 
-    public ShopListDetailDTO shopListDetail(int pmId){
+    public ShopListDetailDTO shopListDetail(int pmId) {
         ShopListDetailDTO shopListDetailDTO = new ShopListDetailDTO();
         System.out.println("dao");
         try {
             conn = JDBCMgr.getConnection();
             stmt = conn.prepareStatement(SHOPLIST_DETAIL);
-            stmt.setInt(1,pmId);
+            stmt.setInt(1, pmId);
 
             rs = stmt.executeQuery();
             if (rs.next()) {
@@ -149,9 +159,9 @@ public class PaymentDAO {
                 String pCompanyPhone = rs.getString("pCompanyPhone");
 
 
-                shopListDetailDTO =new  ShopListDetailDTO(pmId, uId, pId, cardName
-                        , cardNum, paymentMethod,paymentDate,progress
-                        ,productNum,savedPoint,usePoint, pName, pPrice, pCompany, pCompanyPhone);
+                shopListDetailDTO = new ShopListDetailDTO(pmId, uId, pId, cardName
+                        , cardNum, paymentMethod, paymentDate, progress
+                        , productNum, savedPoint, usePoint, pName, pPrice, pCompany, pCompanyPhone);
 
             }
 
@@ -161,6 +171,100 @@ public class PaymentDAO {
             JDBCMgr.close(rs, stmt, conn);
         }
         return shopListDetailDTO;
+    }
+
+    public List<ShopListDTO> searchPeriod(String date1, String date2) {
+        List<ShopListDTO> shoppingList = new LinkedList<>();
+        try {
+            conn = JDBCMgr.getConnection();
+            stmt = conn.prepareStatement(SHOPPING_SEARCH_PERIOD);
+            stmt.setString(1, date1);
+            stmt.setString(2, date2);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                int pmId = rs.getInt("pmId");
+                int uId = rs.getInt("uId");
+                int pId = rs.getInt("pId");
+                String paymentMethod = rs.getString("paymentMethod");
+                String paymentDate = rs.getString("paymentDate");
+                String pName = rs.getString("pName");
+                int pPrice = rs.getInt("pPrice");
+                String companyName = rs.getString("pCompany");
+                String companyNamePhone = rs.getString("pCompanyPhone");
+
+                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCMgr.close(rs, stmt, conn);
+        }
+
+        return shoppingList;
+    }
+
+    public List<ShopListDTO> searchPeriod(String date1, String date2, String method) {
+        List<ShopListDTO> shoppingList = new LinkedList<>();
+        try {
+            conn = JDBCMgr.getConnection();
+            stmt = conn.prepareStatement(SHOPPING_SEARCH_PERIOD_METHOD);
+            stmt.setString(1, date1);
+            stmt.setString(2, date2);
+            stmt.setString(3, method);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                int pmId = rs.getInt("pmId");
+                int uId = rs.getInt("uId");
+                int pId = rs.getInt("pId");
+                String paymentMethod = rs.getString("paymentMethod");
+                String paymentDate = rs.getString("paymentDate");
+                String pName = rs.getString("pName");
+                int pPrice = rs.getInt("pPrice");
+                String companyName = rs.getString("pCompany");
+                String companyNamePhone = rs.getString("pCompanyPhone");
+
+                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCMgr.close(rs, stmt, conn);
+        }
+
+        return shoppingList;
+    }
+
+    public List<ShopListDTO> selectAll() {
+        List<ShopListDTO> shoppingList = new LinkedList<>();
+        try {
+            conn = JDBCMgr.getConnection();
+            stmt = conn.prepareStatement(PAYMENT_SELECT_ALL);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                int pmId = rs.getInt("pmId");
+                int uId = rs.getInt("uId");
+                int pId = rs.getInt("pId");
+                String paymentMethod = rs.getString("paymentMethod");
+                String paymentDate = rs.getString("paymentDate");
+                String pName = rs.getString("pName");
+                int pPrice = rs.getInt("pPrice");
+                String companyName = rs.getString("pCompany");
+                String companyNamePhone = rs.getString("pCompanyPhone");
+
+                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCMgr.close(rs, stmt, conn);
+        }
+        return shoppingList;
     }
 
 }

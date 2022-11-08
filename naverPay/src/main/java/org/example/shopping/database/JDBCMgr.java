@@ -1,10 +1,12 @@
-package org.example.products.database;
+package org.example.shopping.database;
 
 import java.sql.*;
 
 public class JDBCMgr { // h2 DB 연결
 
-    private JDBCMgr() {}
+    private JDBCMgr() {
+    }
+
     public static Connection getConnection() {
         Connection conn = null;
 
