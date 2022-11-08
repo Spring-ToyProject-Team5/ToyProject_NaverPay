@@ -1,4 +1,4 @@
-package org.example.members.entity;
+package org.example.shopping.entity;
 
 import lombok.Getter;
 
