@@ -57,13 +57,26 @@
     </tr>
     <c:forEach items="${list}" var="s">
         <form action="<c:url value="/shop-list/detailpage/${s.pmId}"/>" method="get">
+            <input hidden class="input-field" type="submit" name="pmId" value="${s.pmId}"/>
             <tr>
-                <td><input class="input-field" type="submit" name="pmId" value="${s.pmId}"/>${s.pName}</td>
-                <td>${s.pPrice}</td>
-                <td>${s.companyName}</td>
-                <td>${s.companyNamePhone}</td>
-                <td>${s.paymentMethod}</td>
-                <td>${s.paymentDate}</td>
+                <td>
+                    <button>${s.PName}</button>
+                </td>
+                <td>
+                    <button>${s.priceSum}</button>
+                </td>
+                <td>
+                    <button>${s.companyName}</button>
+                </td>
+                <td>
+                    <button>${s.companyNamePhone}</button>
+                </td>
+                <td>
+                    <button>${s.paymentMethod}</button>
+                </td>
+                <td>
+                    <button>${s.paymentDate}</button>
+                </td>
             </tr>
         </form>
     </c:forEach>

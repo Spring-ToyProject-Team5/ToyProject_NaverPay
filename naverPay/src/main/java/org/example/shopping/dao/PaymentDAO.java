@@ -1,5 +1,3 @@
-
-
 package org.example.shopping.dao;
 
 
@@ -8,6 +6,7 @@ import org.example.shopping.dto.ShopListDTO;
 import org.example.shopping.dto.ShopListDetailDTO;
 import org.example.shopping.entity.Payment;
 import org.example.shopping.entity.Product;
+import org.example.shopping.vo.ShopListVO;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -16,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class PaymentDAO {
@@ -176,7 +176,7 @@ public class PaymentDAO {
         return shopListDetailDTO;
     }
 
-    public List<ShopListDTO> userSearchPeriod(int id, String date1, String date2) {
+    public List<ShopListVO> userSearchPeriod(int id, String date1, String date2) {
         List<ShopListDTO> shoppingList = new LinkedList<>();
         try {
             conn = JDBCMgr.getConnection();
@@ -196,8 +196,9 @@ public class PaymentDAO {
                 int pPrice = rs.getInt("pPrice");
                 String companyName = rs.getString("pCompany");
                 String companyNamePhone = rs.getString("pCompanyPhone");
+                int productNum = rs.getInt("productNum");
 
-                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone));
+                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone, productNum));
             }
 
         } catch (SQLException e) {
@@ -206,10 +207,10 @@ public class PaymentDAO {
             JDBCMgr.close(rs, stmt, conn);
         }
 
-        return shoppingList;
+        return shoppingList.stream().map(s -> s.toVo()).collect(Collectors.toList());
     }
 
-    public List<ShopListDTO> userSearchPeriod(int id, String date1, String date2, String method) {
+    public List<ShopListVO> userSearchPeriod(int id, String date1, String date2, String method) {
         List<ShopListDTO> shoppingList = new LinkedList<>();
         try {
             conn = JDBCMgr.getConnection();
@@ -230,8 +231,9 @@ public class PaymentDAO {
                 int pPrice = rs.getInt("pPrice");
                 String companyName = rs.getString("pCompany");
                 String companyNamePhone = rs.getString("pCompanyPhone");
+                int productNum = rs.getInt("productNum");
 
-                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone));
+                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone, productNum));
             }
 
         } catch (SQLException e) {
@@ -240,15 +242,15 @@ public class PaymentDAO {
             JDBCMgr.close(rs, stmt, conn);
         }
 
-        return shoppingList;
+        return shoppingList.stream().map(s -> s.toVo()).collect(Collectors.toList());
     }
 
-    public List<ShopListDTO> userSelectAll(int Id) {
+    public List<ShopListVO> userSelectAll(int id) {
         List<ShopListDTO> shoppingList = new LinkedList<>();
         try {
             conn = JDBCMgr.getConnection();
             stmt = conn.prepareStatement(PAYMENT_SELECT_ALL);
-            stmt.setInt(1, Id);
+            stmt.setInt(1, id);
 
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -261,8 +263,9 @@ public class PaymentDAO {
                 int pPrice = rs.getInt("pPrice");
                 String companyName = rs.getString("pCompany");
                 String companyNamePhone = rs.getString("pCompanyPhone");
+                int productNum = rs.getInt("productNum");
 
-                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone));
+                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone, productNum));
             }
 
         } catch (SQLException e) {
@@ -270,7 +273,7 @@ public class PaymentDAO {
         } finally {
             JDBCMgr.close(rs, stmt, conn);
         }
-        return shoppingList;
+        return shoppingList.stream().map(s -> s.toVo()).collect(Collectors.toList());
     }
 
 }
