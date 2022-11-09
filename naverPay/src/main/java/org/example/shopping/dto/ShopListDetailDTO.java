@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.shopping.vo.ShopListDetailVO;
 
 @Getter
 @Setter
@@ -44,5 +45,25 @@ public class ShopListDetailDTO {
         this.pPrice = pPrice;
         this.companyName = companyName;
         this.companyNamePhone = companyNamePhone;
+    }
+
+    public ShopListDetailVO toVO() {
+        return ShopListDetailVO.builder()
+                .pmId(pmId)
+                .uId(uId)
+                .pId(pId)
+                .cardName(cardName)
+                .cardNum(cardNum)
+                .paymentMethod(paymentMethod)
+                .paymentDate(paymentDate)
+                .progress(progress)
+                .productNum(productNum)
+                .savedPoint(savedPoint)
+                .usePoint(usePoint)
+                .pName(pName)
+                .priceSum(pPrice * productNum)
+                .companyName(companyName)
+                .companyNamePhone(companyNamePhone)
+                .build();
     }
 }
