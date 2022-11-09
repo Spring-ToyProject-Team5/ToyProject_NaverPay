@@ -30,7 +30,7 @@ public class ShoppingListController {
 //        if (session.getAttribute("SESSION_ID") != null) { // 로그인이 되어있는 상태
 //            return "로그인 화면으로";
 //        }
-//        sessionMgr.create(session, "SESSION_ID", "2");
+        sessionMgr.create(session, "SESSION_ID", "2");
         cookieMgr.delete(request, response, new String[]{"Date1", "Date2", "Method"});
         List<ShopListDTO> shoppingDTOList = paymentService.getShoppingList(Integer.parseInt(sessionMgr.get(session, "SESSION_ID")));
         model.addAttribute("list", shoppingDTOList);
@@ -41,7 +41,7 @@ public class ShoppingListController {
     public String shoppingPeriodSearch(HttpServletRequest request, HttpServletResponse response, HttpSession session, @RequestParam String date1, @RequestParam String date2, @RequestParam String method, Model model) { // 기간을 안 넣어도 되고 안 넣으면 디폴트값주기
         // 기간을 받아 그 기간에 해당하는 Product를 모델에서 담아서 뷰에 넘김
         List<ShopListDTO> shoppingDTOList;
-//        sessionMgr.create(session, "SESSION_ID", "2");
+        sessionMgr.create(session, "SESSION_ID", "2");
         if (method.equals("전체상태")) {
             shoppingDTOList = paymentService.getShoppingPeriod(Integer.parseInt(sessionMgr.get(session, "SESSION_ID")), date1, date2);
         } else {
@@ -61,9 +61,9 @@ public class ShoppingListController {
     }
 
     @PostMapping("/detail")
-    public String detail(@RequestParam String pName) {
-        System.out.println(pName);
-        return "index";
+    public String detail(@RequestParam Integer pmId) {
+        System.out.println(pmId);
+        return "shopDetail";
     }
 
     // 쿠키가 아니였음. (쿠키는 새로고침해야 뜨는데 네이버페이에서는 바로 값을 줌)

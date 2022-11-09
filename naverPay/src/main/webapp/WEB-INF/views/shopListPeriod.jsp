@@ -15,9 +15,9 @@
     <title>shoppingList</title>
 </head>
 <body>
-<h1><a href = "http://localhost:8080/naver/pay" target = ""> 5팀 페이 </a></h1>
+<h1><a href="http://localhost:8080/naver/pay" target=""> 5팀 페이 </a></h1>
 <form action="<c:url value="/naver/shopping"/>" method="GET">
-    <input class="input-field" type="date" name="date1" value="${date1}" />
+    <input class="input-field" type="date" name="date1" value="${date1}"/>
     <input class="input-field" type="date" name="date2" value="${date2}"/>
     <select class="input-field" name="method">
         <option hidden>${method}</option>
@@ -35,7 +35,7 @@
         <option>a</option>
         <option>b</option>
     </select>
-    <button type="submit" onClick="window.location.reload()">조회&#x1F50D</button>
+    <button>조회&#x1F50D</button>
 
 </form>
 <table border="1">
@@ -50,12 +50,12 @@
     <c:forEach items="${list}" var="s">
         <form action="<c:url value="/naver/detail"/>" method="post">
             <tr>
-                <td>${s.pName}</td>
-                <td>${s.pPrice}</td>
-                <td>${s.companyName}</td>
-                <td>${s.companyNamePhone}</td>
-                <td>${s.paymentMethod}</td>
-                <td>${s.paymentDate}</td>
+                <td><input class="input-field" type="submit" name="pmId" value="${s.pmId}"/>${s.pName}</td>
+                <td><input class="input-field" type="submit" name="pmId" value="${s.pmId}"/>${s.pPrice}</td>
+                <td><input class="input-field" type="submit" name="pmId" value="${s.pmId}"/>${s.companyName}</td>
+                <td><input class="input-field" type="submit" name="pmId" value="${s.pmId}"/>${s.companyNamePhone}</td>
+                <td><input class="input-field" type="submit" name="pmId" value="${s.pmId}"/>${s.paymentMethod}</td>
+                <td><input class="input-field" type="submit" name="pmId" value="${s.pmId}"/>${s.paymentDate}</td>
             </tr>
         </form>
     </c:forEach>
