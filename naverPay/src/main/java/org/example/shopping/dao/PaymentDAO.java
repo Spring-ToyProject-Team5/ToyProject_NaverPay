@@ -122,6 +122,7 @@ public class PaymentDAO {
             conn = JDBCMgr.getConnection();
             stmt = conn.prepareStatement(PAYMENT_DELETE);
             stmt.setInt(1, pmId);
+
             res = stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -136,7 +137,7 @@ public class PaymentDAO {
 
     public ShopListDetailDTO shopListDetail(int pmId) {
         ShopListDetailDTO shopListDetailDTO = new ShopListDetailDTO();
-        System.out.println("dao");
+
         try {
             conn = JDBCMgr.getConnection();
             stmt = conn.prepareStatement(SHOPLIST_DETAIL);
