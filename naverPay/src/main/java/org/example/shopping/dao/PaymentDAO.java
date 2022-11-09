@@ -26,10 +26,10 @@ public class PaymentDAO {
 
     private static final String PAYMENT_SELECT = "select * from payment where pmId = ?";
     private static final String PAYMENT_DELETE = "delete from payment where pmId = ?";
-    private static final String PAYMENT_SELECT_ALL = "select * from payment join product on product.pId = payment.pId order by paymentDate DESC";
+    private static final String PAYMENT_SELECT_ALL = "select * from payment join product on product.pId = payment.pId  where uId = ? order by paymentDate DESC";
     private static final String PRODUCT_SELECT = "select * from product where pId = ?";
-    private static final String SHOPPING_SEARCH_PERIOD = "select * from payment join product on product.pId = payment.pId where paymentDate between ? and ? order by paymentDate DESC";
-    private static final String SHOPPING_SEARCH_PERIOD_METHOD = "select * from payment join product on product.pId = payment.pId where (paymentDate between ? and ?) and (paymentMethod = ?) order by paymentDate DESC";
+    private static final String SHOPPING_SEARCH_PERIOD = "select * from payment join product on product.pId = payment.pId where (uId = ?) and (paymentDate between ? and ?) order by paymentDate DESC";
+    private static final String SHOPPING_SEARCH_PERIOD_METHOD = "select * from payment join product on product.pId = payment.pId where uId = ? and (paymentDate between ? and ?) and (paymentMethod = ?) order by paymentDate DESC";
     private static final String SHOPLIST_DETAIL = "SELECT *\n" +
             "from payment\n" +
             "join product\n" +
@@ -173,13 +173,14 @@ public class PaymentDAO {
         return shopListDetailDTO;
     }
 
-    public List<ShopListDTO> searchPeriod(String date1, String date2) {
+    public List<ShopListDTO> userSearchPeriod(int id, String date1, String date2) {
         List<ShopListDTO> shoppingList = new LinkedList<>();
         try {
             conn = JDBCMgr.getConnection();
             stmt = conn.prepareStatement(SHOPPING_SEARCH_PERIOD);
-            stmt.setString(1, date1);
-            stmt.setString(2, date2);
+            stmt.setInt(1, id);
+            stmt.setString(2, date1);
+            stmt.setString(3, date2);
 
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -205,14 +206,15 @@ public class PaymentDAO {
         return shoppingList;
     }
 
-    public List<ShopListDTO> searchPeriod(String date1, String date2, String method) {
+    public List<ShopListDTO> userSearchPeriod(int id, String date1, String date2, String method) {
         List<ShopListDTO> shoppingList = new LinkedList<>();
         try {
             conn = JDBCMgr.getConnection();
             stmt = conn.prepareStatement(SHOPPING_SEARCH_PERIOD_METHOD);
-            stmt.setString(1, date1);
-            stmt.setString(2, date2);
-            stmt.setString(3, method);
+            stmt.setInt(1, id);
+            stmt.setString(2, date1);
+            stmt.setString(3, date2);
+            stmt.setString(4, method);
 
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -238,11 +240,12 @@ public class PaymentDAO {
         return shoppingList;
     }
 
-    public List<ShopListDTO> selectAll() {
+    public List<ShopListDTO> userSelectAll(int Id) {
         List<ShopListDTO> shoppingList = new LinkedList<>();
         try {
             conn = JDBCMgr.getConnection();
             stmt = conn.prepareStatement(PAYMENT_SELECT_ALL);
+            stmt.setInt(1, Id);
 
             rs = stmt.executeQuery();
             while (rs.next()) {

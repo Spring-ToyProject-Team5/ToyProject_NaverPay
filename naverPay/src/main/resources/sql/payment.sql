@@ -29,7 +29,7 @@ INSERT INTO PAYMENT (uId, pId, cardName, cardNum, paymentMethod, paymentDate, pr
 
 SELECT * FROM PAYMENT;
 
-select * from payment join product on product.pId = payment.pId order by paymentDate DESC;
+select * from payment join product on product.pId = payment.pId where uId = '1' order by paymentDate DESC;
 
 select * from payment join product on product.pId = payment.pId where pdate between '2022-11-01' and '2022-11-04' order by paymentDate DESC
 select * from payment join product on product.pId = payment.pId where (paymentDate between '2022-11-01' and '2022-11-07') and (paymentMethod = 'a') order by paymentDate DESC;

@@ -4,13 +4,9 @@ package org.example.shopping.service;
 import org.example.shopping.dao.PaymentDAO;
 import org.example.shopping.dto.ShopListDTO;
 import org.example.shopping.dto.ShopListDetailDTO;
-import org.example.shopping.entity.Product;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PaymentService {
@@ -41,23 +37,23 @@ public class PaymentService {
     }
 
 
-    public List<ShopListDTO> getShoppingPeriod(String date1, String date2) {
+    public List<ShopListDTO> getShoppingPeriod(int id, String date1, String date2) {
         if (date1 == null || date2 == null) {
             return null;
         }
-        List<ShopListDTO> shoppingList = paymentDAO.searchPeriod(date1, date2);
+        List<ShopListDTO> shoppingList = paymentDAO.userSearchPeriod(id, date1, date2);
         if (shoppingList == null) return null;
 
         return shoppingList;
     }
 
 
-    public List<ShopListDTO> getShoppingPeriod(String date1, String date2, String method) {
+    public List<ShopListDTO> getShoppingPeriod(int id, String date1, String date2, String method) {
         if (date1 == null || date2 == null || method == null) {
             return null;
         }
 
-        List<ShopListDTO> shoppingList = paymentDAO.searchPeriod(date1, date2, method);
+        List<ShopListDTO> shoppingList = paymentDAO.userSearchPeriod(id, date1, date2, method);
 
         if (shoppingList == null) {
             return null;
@@ -67,8 +63,8 @@ public class PaymentService {
     }
 
 
-    public List<ShopListDTO> getShoppingList() {
-        List<ShopListDTO> shoppingList = paymentDAO.selectAll();
+    public List<ShopListDTO> getShoppingList(int id) {
+        List<ShopListDTO> shoppingList = paymentDAO.userSelectAll(id);
 
         if (shoppingList == null) {
             return null;
