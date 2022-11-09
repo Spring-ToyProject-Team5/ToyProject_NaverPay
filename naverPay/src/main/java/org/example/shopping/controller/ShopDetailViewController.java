@@ -45,7 +45,7 @@ public class ShopDetailViewController {
     @GetMapping("/detailpage/{pmId}")
     public String getShopListDetail(@PathVariable Integer pmId, Model model, HttpSession session) {
         if (pmId < 1) {
-            return "redirect:/naver/pay/shopList"; //쇼핑리스트 페이지로 돌아가게 하면 될 것 같음
+            return "shopList"; //쇼핑리스트 페이지로 돌아가게 하면 될 것 같음
         }
 
         if (session.getAttribute("SESSION_ID") == null) {
@@ -57,9 +57,9 @@ public class ShopDetailViewController {
         ShopListDetailDTO shopListDetailDTO = paymentService.getByPaymentId(pmId);
 
         if (shopListDetailDTO == null) {
-            return "redirect:/naver/pay/shopList"; //쇼핑리스트 페이지로 돌아가게 하면 될 것 같음
+            return "shopList"; //쇼핑리스트 페이지로 돌아가게 하면 될 것 같음
         }
-        
+
         model.addAttribute("detail", shopListDetailDTO.toVO());
         return "shopDetail";
     }
