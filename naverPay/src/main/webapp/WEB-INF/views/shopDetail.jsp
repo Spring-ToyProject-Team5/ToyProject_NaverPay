@@ -13,11 +13,9 @@
 <body>
 상세페이지 접근완료
 
-<%--${detail.pName}--%>
-<%--${detail.pPrice}--%>
 
 <h2>구매 정보</h2>
-<p> 구매한 상품명: ${detail.pName}</p>
+<p> 구매한 상품명: ${detail.PName}</p>
 <p> 상품 가격: ${detail.priceSum}</p>
 <p> 구매한 횟수: ${detail.productNum}</p>
 <p> 회사명: ${detail.companyName}</p>
@@ -35,6 +33,9 @@
 <p> 적립된 포인트: ${detail.savedPoint}</p>
 <p> 사용한 포인트: ${detail.usePoint}</p>
 
+<form action="/shop-list/detailpage-delete/${detail.pmId}" method="get">
+    <button><input class="input-field" type="submit" name="pmId" value="${detail.pmId}"/>삭제</button>
+</form>
 
 </body>
 </html>

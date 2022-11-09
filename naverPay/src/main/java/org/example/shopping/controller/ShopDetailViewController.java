@@ -1,15 +1,18 @@
 package org.example.shopping.controller;
 
 import jakarta.validation.constraints.Min;
+import org.example.response.BaseResponse;
+import org.example.response.StatusEnum;
 import org.example.sessions.SessionMgr;
 import org.example.shopping.dto.ShopListDetailDTO;
 import org.example.shopping.service.PaymentService;
+import org.example.shopping.vo.ShopListDetailVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -39,18 +42,41 @@ public class ShopDetailViewController {
         return view;
     }
 
-    @GetMapping("detailpage/{pmId}")
-    public String getShopListDetail(@PathVariable @Min(1) Integer pmId, Model model) {
+    @GetMapping("/detailpage/{pmId}")
+    public String getShopListDetail(@PathVariable Integer pmId, Model model, HttpSession session) {
         if (pmId < 1) {
-            return "redirect:/naver/pay/shopList"; //쇼핑리스트 페이지로 돌아가게 하면 될 것 같음
+            return "shopList"; //쇼핑리스트 페이지로 돌아가게 하면 될 것 같음
         }
+
+        if (session.getAttribute("SESSION_ID") == null) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("uId", sessionMgr.get(session));
+
         ShopListDetailDTO shopListDetailDTO = paymentService.getByPaymentId(pmId);
 
         if (shopListDetailDTO == null) {
-            return "redirect:/naver/pay/shopList"; //쇼핑리스트 페이지로 돌아가게 하면 될 것 같음
+            return "shopList"; //쇼핑리스트 페이지로 돌아가게 하면 될 것 같음
         }
 
         model.addAttribute("detail", shopListDetailDTO.toVO());
         return "shopDetail";
     }
+
+    @GetMapping("/detailpage-delete/{pmId}")
+    public String removeByPaymentId(@PathVariable @Min(1) Integer pmId, HttpSession session, Model model) {
+
+        if (session.getAttribute("SESSION_ID") == null) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("uId", sessionMgr.get(session));
+
+        StatusEnum status = paymentService.removeByPaymentId(pmId) ?
+                StatusEnum.SUCCESS : StatusEnum.CANT_DELETE;
+
+        return "shopList";
+    }
+
 }

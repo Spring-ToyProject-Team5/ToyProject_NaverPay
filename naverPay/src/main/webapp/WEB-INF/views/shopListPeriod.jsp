@@ -48,7 +48,7 @@
         <th>결제 날짜</th>
     </tr>
     <c:forEach items="${list}" var="s">
-        <form action="/shop-lsit/detailpage/${pmId}" method="GET">
+        <form action="/shop-list/detailpage/${s.pmId}" method="GET">
             <tr>
                 <td><input class="input-field" type="submit" name="pmId" value="${s.pmId}"/>${s.pName}</td>
                 <td>${s.pPrice}</td>
