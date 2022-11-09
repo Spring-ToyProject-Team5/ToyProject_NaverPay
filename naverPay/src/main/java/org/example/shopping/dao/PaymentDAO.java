@@ -23,20 +23,13 @@ public class PaymentDAO {
 
     private static final String PAYMENT_SELECT = "select * from payment where pmId = ?";
     private static final String PAYMENT_DELETE = "delete from payment where pmId = ?";
-    private static final String PRODUCT_SELECT = "select * from product where pId = ?";
     private static final String SHOPLIST_DETAIL ="SELECT *\n" +
                                                                                         "from payment\n" +
                                                                                         "join product\n" +
                                                                                         "on product.pId = payment.pId\n" +
                                                                                         "where pmId = ?";
 
-    private static final String SHOPLIST_SELECT_ALL ="SELECT *\n" +
-                                                                                                "from payment\n" +
-                                                                                                "join product\n" +
-                                                                                                "on product.pId = payment.pId\n" +
-                                                                                                "where uId = ?";
 
-    private static final String USER_PAYMENT = "select * from payment where uId = ? ";
 
     public PaymentDAO() {
         System.out.println("PaymentDAO()");
@@ -77,32 +70,6 @@ public class PaymentDAO {
         return payment;
     }
 
-    public Product productSelect(int pId) {
-        Product product = null;
-        try {
-            conn = JDBCMgr.getConnection();
-            stmt = conn.prepareStatement(PRODUCT_SELECT);
-            stmt.setInt(1,pId);
-
-            rs = stmt.executeQuery();
-            if (rs.next()) {
-
-                String pName = rs.getString("pName");
-                int pPrice = rs.getInt("pPrice");
-                String pCompany = rs.getString("pCompany");
-                String pCompanyPhone = rs.getString("pCompanyPhone");
-
-                product =  new Product(pId, pName, pPrice, pCompany, pCompanyPhone);
-
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            JDBCMgr.close(rs, stmt, conn);
-        }
-        return product;
-    }
 
     public int delete(int pmId) {
         int res = 0;
@@ -123,8 +90,8 @@ public class PaymentDAO {
     }
 
     public ShopListDetailDTO shopListDetail(int pmId){
-        ShopListDetailDTO shopListDetailDTO = new ShopListDetailDTO();
-        System.out.println("dao");
+        ShopListDetailDTO shopListDetailDTO = null;
+
         try {
             conn = JDBCMgr.getConnection();
             stmt = conn.prepareStatement(SHOPLIST_DETAIL);
