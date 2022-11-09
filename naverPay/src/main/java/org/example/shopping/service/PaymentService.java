@@ -19,16 +19,14 @@ public class PaymentService {
     }
 
     public ShopListDetailDTO getByPaymentId(int pmId){
-        if (pmId ==0 ) return null;
         ShopListDetailDTO shopListDetailDTO = paymentDAO.shopListDetail(pmId);
         return shopListDetailDTO;
     }
 
 
-    public boolean removeByPaymentId(int paymentId){
-        if (paymentId ==0) return false;
+    public boolean removeByPaymentId(int pmId){
 
-        int res = paymentDAO.delete(paymentId);
+        int res = paymentDAO.delete(pmId);
         return res>0;
     }
 
