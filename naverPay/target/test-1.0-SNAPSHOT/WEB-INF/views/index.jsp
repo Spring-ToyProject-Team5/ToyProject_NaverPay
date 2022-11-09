@@ -11,10 +11,8 @@
     <title>SPRING</title>
 </head>
 <body>
-<h1>하이</h1>
-${now}
-<%
-    request.getAttribute("now");
-%>
+
+<h1><a href="http://localhost:8080/members/login" target=""> 5팀 페이 </a></h1>
+
 </body>
 </html>

@@ -2,9 +2,9 @@ package org.example.shopping.controller;
 
 
 import org.example.cookies.CookieMgr;
+import org.example.sessions.SessionMgr;
 import org.example.shopping.dto.MemberDTO;
 import org.example.shopping.service.MemberService;
-import org.example.sessions.SessionMgr;
 import org.example.utils.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +25,7 @@ public class LoginController {
     private SessionMgr sessionMgr;// = SessionMgr.getInstance();
     private CookieMgr cookieMgr;// = CookieMgr.getInstance();
     private MemberService memberService;// = MemberService.getInstance();
+
     @Autowired
     public LoginController(SessionMgr sessionMgr, CookieMgr cookieMgr, MemberService memberService) {
         this.sessionMgr = sessionMgr;
@@ -57,17 +58,16 @@ public class LoginController {
     public String doLogin(@RequestParam String uNaverId, @RequestParam String uPw, @RequestParam(required = false) String save,
                           Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 
-        System.out.println("post dologin called");
         String view = loginPage(request, session);
         Status respStatus = Status.FAIL;
 
         MemberDTO memberDTO = memberService.login(uNaverId, uPw);
         if (memberDTO != null) {
-            sessionMgr.create(session, uNaverId);
+            sessionMgr.create(session, "SESSION_ID", uNaverId);
 
             //saveCookieForAutoLogin(uNaverId, save, response);
 
-            view = "redirect:/";
+            view = "redirect:/naver/pay";
             respStatus = Status.SUCCESS;
         }
 

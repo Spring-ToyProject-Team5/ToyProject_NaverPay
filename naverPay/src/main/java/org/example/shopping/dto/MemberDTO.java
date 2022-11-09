@@ -16,6 +16,7 @@ public class MemberDTO { //uId, uName, uPhone, uAddress, uEmail, uNaverId, uPw, 
     private String uNaverId = "";
     private String uPw = null;
     private int uPoint;
+
     public MemberDTO() {
     }
 
@@ -28,7 +29,18 @@ public class MemberDTO { //uId, uName, uPhone, uAddress, uEmail, uNaverId, uPw, 
         this.uPw = uPw; //needEncode ? Password.of(uPw, true) : Password.of(uPw, false);
     }
 
-//    public MemberDTO(String uNaverId, String uPw) {
+    public MemberDTO(int uId, String uName, String uPhone, String uAddress, String uEmail, String uNaverId, String uPw, int uPoint) {
+        this.uId = uId;
+        this.uName = uName;
+        this.uPhone = uPhone;
+        this.uAddress = uAddress;
+        this.uEmail = uEmail;
+        this.uNaverId = uNaverId;
+        this.uPw = uPw;
+        this.uPoint = uPoint;
+    }
+
+    //    public MemberDTO(String uNaverId, String uPw) {
 //        this.uNaverId = uNaverId;
 //        this.uPw = uPw;
 //    }
@@ -42,7 +54,7 @@ public class MemberDTO { //uId, uName, uPhone, uAddress, uEmail, uNaverId, uPw, 
 //        this.uPw = uPw; // needEncode ? Password.of(uPw, true) : Password.of(uPw, false);
 //    }
 
-    public MemberDTO( String uName, String uPhone, String uAddress, String uEmail, String uNaverId, String uPw) {
+    public MemberDTO(String uName, String uPhone, String uAddress, String uEmail, String uNaverId, String uPw) {
         this.uName = uName;
         this.uPhone = uPhone;
         this.uAddress = uAddress;
@@ -86,8 +98,6 @@ public class MemberDTO { //uId, uName, uPhone, uAddress, uEmail, uNaverId, uPw, 
 //    public void setuEmail(String uEmail) {
 //        this.uEmail = uEmail;
 //    }
-
-
 
 
     @Override

@@ -14,6 +14,8 @@ public class PaymentService {
 
     private static PaymentService paymentService = null;
 
+    private static MemberService memberService = MemberService.getInstance();
+
     public static PaymentService getInstance() {
         if (paymentService == null) {
             paymentService = new PaymentService();
@@ -36,7 +38,8 @@ public class PaymentService {
     }
 
 
-    public List<ShopListVO> getShoppingPeriod(int id, String date1, String date2) {
+    public List<ShopListVO> getShoppingPeriod(String uNaverId, String date1, String date2) {
+        int id = memberService.getByUserId(uNaverId).getUId();
         if (date1 == null || date2 == null) {
             return null;
         }
@@ -47,7 +50,8 @@ public class PaymentService {
     }
 
 
-    public List<ShopListVO> getShoppingPeriod(int id, String date1, String date2, String method) {
+    public List<ShopListVO> getShoppingPeriod(String uNaverId, String date1, String date2, String method) {
+        int id = memberService.getByUserId(uNaverId).getUId();
         if (date1 == null || date2 == null || method == null) {
             return null;
         }
@@ -62,8 +66,10 @@ public class PaymentService {
     }
 
 
-    public List<ShopListVO> getShoppingList(int id) {
+    public List<ShopListVO> getShoppingList(String uNaverId) {
+        int id = memberService.getByUserId(uNaverId).getUId();
         List<ShopListVO> shoppingList = paymentDAO.userSelectAll(id);
+
 
         if (shoppingList == null) {
             return null;
