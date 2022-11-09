@@ -34,7 +34,8 @@
 <p> 사용한 포인트: ${detail.usePoint}</p>
 
 <form action="/shop-list/detailpage-delete/${detail.pmId}" method="get">
-    <button><input class="input-field" type="submit" name="pmId" value="${detail.pmId}"/>삭제</button>
+    <input hidden class="input-field" type="submit" name="pmId" value="${detail.pmId}"/>
+    <button>삭제</button>
 </form>
 
 </body>

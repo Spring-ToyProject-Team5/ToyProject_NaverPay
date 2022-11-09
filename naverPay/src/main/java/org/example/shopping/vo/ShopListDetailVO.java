@@ -41,5 +41,5 @@ public class ShopListDetailVO {
         this.companyNamePhone = companyNamePhone;
     }
 
-
+    
 }
