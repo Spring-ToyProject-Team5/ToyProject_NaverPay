@@ -51,11 +51,11 @@
         <form action="<c:url value="/naver/detail"/>" method="post">
             <tr>
                 <td><input class="input-field" type="submit" name="pmId" value="${s.pmId}"/>${s.pName}</td>
-                <td><input class="input-field" type="submit" name="pmId" value="${s.pmId}"/>${s.pPrice}</td>
-                <td><input class="input-field" type="submit" name="pmId" value="${s.pmId}"/>${s.companyName}</td>
-                <td><input class="input-field" type="submit" name="pmId" value="${s.pmId}"/>${s.companyNamePhone}</td>
-                <td><input class="input-field" type="submit" name="pmId" value="${s.pmId}"/>${s.paymentMethod}</td>
-                <td><input class="input-field" type="submit" name="pmId" value="${s.pmId}"/>${s.paymentDate}</td>
+                <td>${s.pPrice}</td>
+                <td>${s.companyName}</td>
+                <td>${s.companyNamePhone}</td>
+                <td>${s.paymentMethod}</td>
+                <td>${s.paymentDate}</td>
             </tr>
         </form>
     </c:forEach>
