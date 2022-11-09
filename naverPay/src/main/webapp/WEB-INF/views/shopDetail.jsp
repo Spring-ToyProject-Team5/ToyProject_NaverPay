@@ -17,7 +17,7 @@
 <%--${detail.pPrice}--%>
 
 <h2>구매 정보</h2>
-<p> 구매한 상품명: ${detail.PName}</p>
+<p> 구매한 상품명: ${detail.pName}</p>
 <p> 상품 가격: ${detail.priceSum}</p>
 <p> 구매한 횟수: ${detail.productNum}</p>
 <p> 회사명: ${detail.companyName}</p>
@@ -29,7 +29,6 @@
 <p> 카드번호: ${detail.cardNum}</p>
 <p> 결제방법: ${detail.paymentMethod}</p>
 <p> 결제날짜: ${detail.paymentDate}</p>
-
 
 
 <h2>포인트 정보</h2>

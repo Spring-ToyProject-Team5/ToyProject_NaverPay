@@ -8,17 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class CookieMgr {
-    //    private static CookieMgr cookie = null;
+        private static CookieMgr cookie = null;
     private static String[] mustCookiesWhenLogin = {"COOKIE_ID", "AUTO_LOGIN"};
 
     private CookieMgr() {}
 
-//    public static CookieMgr getInstance() {
-//        if (cookie == null) {
-//            cookie = new CookieMgr();
-//        }
-//        return cookie;
-//    }
+    public static CookieMgr getInstance() {
+        if (cookie == null) {
+            cookie = new CookieMgr();
+        }
+        return cookie;
+    }
 
     public void create(HttpServletResponse response, String[] values) {
         create(response, mustCookiesWhenLogin, values);

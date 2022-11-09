@@ -6,16 +6,16 @@ import javax.servlet.http.HttpSession;
 
 @Component
 public class SessionMgr {
-//    private static SessionMgr session = null;
+    private static SessionMgr session = null;
 
     private SessionMgr() {}
 
-//    public static SessionMgr getInstance() {
-//        if (session == null) {
-//            session = new SessionMgr();
-//        }
-//        return session;
-//    }
+    public static SessionMgr getInstance() {
+        if (session == null) {
+            session = new SessionMgr();
+        }
+        return session;
+    }
 
     public void create(HttpSession session, String value) {
         if (session.getAttribute("SESSION_ID") == null) {

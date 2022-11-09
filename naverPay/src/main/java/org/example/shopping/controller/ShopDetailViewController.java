@@ -41,7 +41,7 @@ public class ShopDetailViewController {
 
     @GetMapping("detailpage/{pmId}")
     public String getShopListDetail(@PathVariable @Min(1) Integer pmId, Model model) {
-        if (pmId <1) {
+        if (pmId < 1) {
             return "redirect:/naver/pay/shopList"; //쇼핑리스트 페이지로 돌아가게 하면 될 것 같음
         }
         ShopListDetailDTO shopListDetailDTO = paymentService.getByPaymentId(pmId);
