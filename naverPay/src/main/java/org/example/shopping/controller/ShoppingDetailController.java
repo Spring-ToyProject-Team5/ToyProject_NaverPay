@@ -1,5 +1,6 @@
 package org.example.shopping.controller;
 
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.example.response.BaseResponse;
 import org.example.response.StatusEnum;
@@ -25,6 +26,10 @@ public class ShoppingDetailController {
 
     @GetMapping("detail/{pmId}")
     public ResponseEntity<BaseResponse> getShopListDetailByUserId(@PathVariable @Min(1) Integer pmId, Model model) {
+        if (pmId <1 ) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new BaseResponse<>(StatusEnum.BAD_REQUEST));
+        }
         ShopListDetailDTO shopListDetailDTO = paymentService.getByPaymentId(pmId);
 
         if (shopListDetailDTO == null) {
@@ -32,20 +37,23 @@ public class ShoppingDetailController {
                     .body(new BaseResponse<>(StatusEnum.NOT_FOUND, shopListDetailDTO));
         }
 
-        model.addAttribute("detail", shopListDetailDTO);
-        return ResponseEntity.ok().body(new BaseResponse(shopListDetailDTO));
+        model.addAttribute("detail", shopListDetailDTO.toVO());
+        return ResponseEntity.ok().body(new BaseResponse(shopListDetailDTO.toVO()));
     }
 
-    @DeleteMapping("/detail/{paymentId}")
-    public ResponseEntity<BaseResponse> removeByPaymentId(@PathVariable @Min(1) Integer paymentId) {
-        if (paymentId == null) {
-            return ResponseEntity.badRequest().body(new BaseResponse(StatusEnum.BAD_REQUEST));
-        };
+    @DeleteMapping("/detail/{pmId}")
+    public ResponseEntity<BaseResponse> removeByPaymentId(@PathVariable @Min(1) Integer pmId) {
+        if (pmId <1) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new BaseResponse<>(StatusEnum.BAD_REQUEST));
+        }
 
-        StatusEnum status = paymentService.removeByPaymentId(paymentId) ?
+        StatusEnum status = paymentService.removeByPaymentId(pmId) ?
                 StatusEnum.SUCCESS : StatusEnum.CANT_DELETE;
 
         return ResponseEntity.ok()
                 .body(new BaseResponse(status));
     }
+
+
 }
