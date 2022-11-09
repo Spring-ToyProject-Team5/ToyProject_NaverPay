@@ -14,9 +14,10 @@ public class ShopListVO {
     private String companyName;
     private String companyNamePhone;
     private int priceSum;
+    private String uNaverId;
 
     @Builder
-    public ShopListVO(int pmId, int uId, int pId, String paymentMethod, String paymentDate, String pName, String companyName, String companyNamePhone, int priceSum) {
+    public ShopListVO(int pmId, int uId, int pId, String paymentMethod, String paymentDate, String pName, String companyName, String companyNamePhone, int priceSum, String uNaverId) {
         this.pmId = pmId;
         this.uId = uId;
         this.pId = pId;
@@ -26,5 +27,6 @@ public class ShopListVO {
         this.companyName = companyName;
         this.companyNamePhone = companyNamePhone;
         this.priceSum = priceSum;
+        this.uNaverId = uNaverId;
     }
 }

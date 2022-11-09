@@ -8,10 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>ShoppingDetail</title>
 </head>
 <body>
-상세페이지 접근완료
+<h1><a href="http://localhost:8080/naver/pay" target=""> 5팀 페이 </a></h1>
 
 
 <h2>구매 정보</h2>

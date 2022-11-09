@@ -16,6 +16,7 @@
 </head>
 <body>
 <h1><a href="http://localhost:8080/naver/pay" target=""> 5팀 페이 </a></h1>
+<h2>${list.get(0).UNaverId}님</h2>
 <form action="<c:url value="/naver/shopping"/>" method="GET">
     <input class="input-field" type="date" name="date1" value="${date1}"/>
     <input class="input-field" type="date" name="date2" value="${date2}"/>

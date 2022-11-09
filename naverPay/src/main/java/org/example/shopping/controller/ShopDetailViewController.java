@@ -1,18 +1,16 @@
 package org.example.shopping.controller;
 
 import jakarta.validation.constraints.Min;
-import org.example.response.BaseResponse;
 import org.example.response.StatusEnum;
 import org.example.sessions.SessionMgr;
 import org.example.shopping.dto.ShopListDetailDTO;
 import org.example.shopping.service.PaymentService;
-import org.example.shopping.vo.ShopListDetailVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -45,7 +43,7 @@ public class ShopDetailViewController {
     @GetMapping("/detailpage/{pmId}")
     public String getShopListDetail(@PathVariable Integer pmId, Model model, HttpSession session) {
         if (pmId < 1) {
-            return "shopList"; //쇼핑리스트 페이지로 돌아가게 하면 될 것 같음
+            return "redirect:/naver/pay"; //쇼핑리스트 페이지로 돌아가게 하면 될 것 같음
         }
 
         if (session.getAttribute("SESSION_ID") == null) {
@@ -57,7 +55,7 @@ public class ShopDetailViewController {
         ShopListDetailDTO shopListDetailDTO = paymentService.getByPaymentId(pmId);
 
         if (shopListDetailDTO == null) {
-            return "shopList"; //쇼핑리스트 페이지로 돌아가게 하면 될 것 같음
+            return "redirect:/naver/pay"; //쇼핑리스트 페이지로 돌아가게 하면 될 것 같음
         }
 
         model.addAttribute("detail", shopListDetailDTO.toVO());
@@ -76,7 +74,7 @@ public class ShopDetailViewController {
         StatusEnum status = paymentService.removeByPaymentId(pmId) ?
                 StatusEnum.SUCCESS : StatusEnum.CANT_DELETE;
 
-        return "shopList";
+        return "redirect:/naver/pay";
     }
 
 }
