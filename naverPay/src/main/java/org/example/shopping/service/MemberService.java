@@ -59,6 +59,7 @@ public class MemberService implements IMemberService {
         if (memberDTO == null || memberDTO.getuPw() == null) return null;
 
         Member member = memberDAO.select(memberDTO.getUNaverId());
+        System.out.println("여기"+member.getUId());
         if (member == null || member.getUPw() == null) return null;
         if (member.getUPw().equals(memberDTO.getuPw())) {
             return member.toDTO();
@@ -68,8 +69,8 @@ public class MemberService implements IMemberService {
 
     @Override
     //int uId, String uName, String uPhone, String uAddress, String uEmail, String uNaverId, String uPw, int uPoint
-    public boolean signup(String uNaverId, String uName, String uPhone, String uEmail, String uPw, String uAddress) {
-        MemberDTO memberDTO = new MemberDTO(uNaverId, uName, uPhone, uEmail, uPw, uAddress);
+    public boolean signup(int uId, String uNaverId, String uName, String uPhone, String uEmail, String uPw, String uAddress) {
+        MemberDTO memberDTO = new MemberDTO(uId, uNaverId, uName, uPhone, uEmail, uPw, uAddress);
         if (memberDTO == null || memberDTO.getuPw() == null) return false;
 
         int res = memberDAO.insert(memberDTO.toEntity());

@@ -14,7 +14,7 @@ public interface IMemberService {
     MemberDTO login(String uId, String uPw);
 
     //int uId, String uName, String uPhone, String uAddress, String uEmail, String uNaverId, String uPw, int uPoint
-    boolean signup(String uNaverId, String uName, String uPhone, String uEmail, String uPw, String uAddress);
+    boolean signup(int uId, String uNaverId, String uName, String uPhone, String uEmail, String uPw, String uAddress);
 
     MemberDTO getByUserId(String uId);
 

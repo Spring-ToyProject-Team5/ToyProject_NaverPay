@@ -46,6 +46,8 @@ public class PaymentDAO {
 
     private static final String USER_PAYMENT = "select * from payment where uId = ? ";
 
+    private static final String USER_INFO = "select * from member where uId = ? ";
+
     public static PaymentDAO getInstance() {
         if (paymentDAO == null) {
             paymentDAO = new PaymentDAO();

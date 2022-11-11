@@ -37,7 +37,7 @@ public class LoginController {
         String view = "members/nonlogin/login";
 
         if (session.getAttribute("SESSION_ID") != null) { // 로그인이 되어있는 상태
-            return "redirect:/";
+            return "redirect:/naver/pay";
         }
 //
 //        String autoLogin = cookieMgr.get(request, "AUTO_LOGIN");
@@ -63,17 +63,17 @@ public class LoginController {
 
         MemberDTO memberDTO = memberService.login(uNaverId, uPw);
         if (memberDTO != null) {
-            sessionMgr.create(session, uNaverId);
+            sessionMgr.create(session, Integer.toString(memberDTO.getUId()));
 
             //saveCookieForAutoLogin(uNaverId, save, response);
 
-            view = "redirect:/";
+            view = "redirect:/naver/pay";
             respStatus = Status.SUCCESS;
         }
 
 
         session.setAttribute("login", respStatus);
-        model.addAttribute("uNaverId", session.getAttribute("SESSION_ID"));
+        model.addAttribute("uId", session.getAttribute("SESSION_ID"));
         return view;
 
     }

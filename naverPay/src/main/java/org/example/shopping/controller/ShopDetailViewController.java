@@ -76,7 +76,7 @@ public class ShopDetailViewController {
         StatusEnum status = paymentService.removeByPaymentId(pmId) ?
                 StatusEnum.SUCCESS : StatusEnum.CANT_DELETE;
 
-        return "shopList";
+        return "redirect:/naver/pay";
     }
 
 }
