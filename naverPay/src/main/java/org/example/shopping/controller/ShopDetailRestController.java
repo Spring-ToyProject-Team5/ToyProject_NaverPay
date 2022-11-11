@@ -1,6 +1,5 @@
 package org.example.shopping.controller;
 
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.example.response.BaseResponse;
 import org.example.response.StatusEnum;
@@ -19,12 +18,13 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/naver")
 @Validated
-public class ShoppingDetailController {
+// 과제는 shopDetailController에 다 구현했고 이거는 rest도 만들어보고 싶어서 만든거라 신경안쓰셔도 됩니다.
+public class ShopDetailRestController {
     private SessionMgr sessionMgr; // = SessionMgr.getInstance();
     private PaymentService paymentService;
 
     @Autowired
-    public ShoppingDetailController(SessionMgr sessionMgr, PaymentService paymentService) {
+    public ShopDetailRestController(SessionMgr sessionMgr, PaymentService paymentService) {
         this.sessionMgr = sessionMgr;
         this.paymentService = paymentService;
     }
@@ -44,7 +44,7 @@ public class ShoppingDetailController {
         return ResponseEntity.ok().body(new BaseResponse(shopListDetailDTO.toVO()));
     }
 
-    @DeleteMapping("/detail/{pmId}")
+    @DeleteMapping("/shopping/{pmId}")
     public ResponseEntity<BaseResponse> removeByPaymentId(@PathVariable @Min(1) Integer pmId, HttpSession session) {
         if (pmId <1) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

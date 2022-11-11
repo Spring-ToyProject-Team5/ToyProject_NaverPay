@@ -54,7 +54,7 @@
         <th>결제 날짜</th>
     </tr>
     <c:forEach items="${list}" var="s">
-        <form action="<c:url value="/shop-list/detailpage/${s.pmId}"/>" method="get">
+        <form action="<c:url value="/naver/pay/${s.pmId}"/>" method="get">
             <input hidden class="input-field" type="submit" name="pmId" value="${s.pmId}"/>
             <tr>
                 <td>
