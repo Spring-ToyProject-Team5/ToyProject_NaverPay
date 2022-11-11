@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping("/shop-list")
+@RequestMapping("/naver")
 @Validated
 public class ShoppingDetailController {
     private SessionMgr sessionMgr; // = SessionMgr.getInstance();
@@ -28,7 +28,7 @@ public class ShoppingDetailController {
         this.sessionMgr = sessionMgr;
         this.paymentService = paymentService;
     }
-    @GetMapping("detail/{pmId}")
+    @GetMapping("shopping/{pmId}")
     public ResponseEntity<BaseResponse> getShopListDetailByUserId(@PathVariable @Min(1) Integer pmId, Model model) {
         if (pmId <1 ) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

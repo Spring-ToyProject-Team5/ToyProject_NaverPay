@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>5Tean Pay</title>
+    <title>5Team Pay</title>
 </head>
 <body>
 
@@ -14,9 +14,9 @@
 
     <h1>LOGIN</h1>
     <div>
-        <form method="post" action="/login">
+        <form method="post" action="/naver/login">
             <div>
-                <label for="uNaverId">ID: </label>
+                <label for="uNaverId">NAVER ID: &nbsp&nbsp</label>
                 <input type="text" id="uNaverId" name="uNaverId" placeholder="INPUT YOUR ID" required/>
             </div>
 

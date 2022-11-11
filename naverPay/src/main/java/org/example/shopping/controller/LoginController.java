@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/naver")
 public class LoginController {
 
     private SessionMgr sessionMgr;// = SessionMgr.getInstance();
