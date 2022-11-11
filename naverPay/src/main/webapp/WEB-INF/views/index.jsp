@@ -12,12 +12,8 @@
 </head>
 <body>
 <h1>메인화면</h1>
-<form action="/members/login" method="get">
+<form action="/login" method="get">
     <button>로그인하기</button>
 </form>
-${now}
-<%
-    request.getAttribute("now");
-%>
 </body>
 </html>
