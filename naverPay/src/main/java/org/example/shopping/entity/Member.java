@@ -1,6 +1,7 @@
 package org.example.shopping.entity;
 
 import lombok.Getter;
+import org.example.shopping.dto.MemberDTO;
 
 @Getter
 public class Member {
@@ -25,5 +26,24 @@ public class Member {
         this.uNaverId = uNaverId;
         this.uPw = uPw;
         this.uPoint = uPoint;
+    }
+
+    public MemberDTO toDTO() {
+        return new MemberDTO(uId, uName, uPhone,uAddress, uEmail, uNaverId, uPw);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "uId=" + uId +
+                ", uName='" + uName + '\'' +
+                ", uPhone='" + uPhone + '\'' +
+                ", uAddress='" + uAddress + '\'' +
+                ", uEmail='" + uEmail + '\'' +
+                ", uNaverId='" + uNaverId + '\'' +
+                ", uPw='" + uPw + '\'' +
+                ", uPoint=" + uPoint +
+                '}';
     }
 }

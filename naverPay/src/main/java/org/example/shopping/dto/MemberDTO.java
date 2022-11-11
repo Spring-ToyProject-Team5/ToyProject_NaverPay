@@ -42,7 +42,8 @@ public class MemberDTO { //uId, uName, uPhone, uAddress, uEmail, uNaverId, uPw, 
 //        this.uPw = uPw; // needEncode ? Password.of(uPw, true) : Password.of(uPw, false);
 //    }
 
-    public MemberDTO( String uName, String uPhone, String uAddress, String uEmail, String uNaverId, String uPw) {
+    public MemberDTO(int uId,  String uName, String uPhone, String uAddress, String uEmail, String uNaverId, String uPw) {
+        this.uId = uId;
         this.uName = uName;
         this.uPhone = uPhone;
         this.uAddress = uAddress;
