@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>NaverPay</title>
+    <title>5Tean Pay</title>
 </head>
 <body>
 
@@ -14,7 +14,7 @@
 
     <h1>LOGIN</h1>
     <div>
-        <form method="post" action="/members/login">
+        <form method="post" action="/login">
             <div>
                 <label for="uNaverId">ID: </label>
                 <input type="text" id="uNaverId" name="uNaverId" placeholder="INPUT YOUR ID" required/>
@@ -25,10 +25,6 @@
                 <input type="password" id="uPw" name="uPw" placeholder="INPUT YOUR PASSWORD" required/>
             </div>
 
-            <div >
-                <label for="save">AUTO LOGIN: </label>
-                <input id="save" type="checkbox" name="save"/>
-            </div>
             <input type="submit" name="submit" value="Submit">
         </form>
     </div>

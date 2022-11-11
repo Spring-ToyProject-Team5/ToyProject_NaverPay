@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/members")
 public class LoginController {
 
     private SessionMgr sessionMgr;// = SessionMgr.getInstance();
@@ -39,17 +38,7 @@ public class LoginController {
         if (session.getAttribute("SESSION_ID") != null) { // 로그인이 되어있는 상태
             return "redirect:/naver/pay";
         }
-//
-//        String autoLogin = cookieMgr.get(request, "AUTO_LOGIN");
-//        String cookieId = cookieMgr.get(request, "COOKIE_ID");
-//
-//
-//        if (autoLogin != null && cookieId != null) {
-//            if (memberService.autoLogin(autoLogin, cookieId)) {
-//                sessionMgr.create(session, cookieId);
-//                view = "redirect:/";
-//            }
-//        }
+
         return view;
     }
 
@@ -57,7 +46,6 @@ public class LoginController {
     public String doLogin(@RequestParam String uNaverId, @RequestParam String uPw, @RequestParam(required = false) String save,
                           Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 
-        System.out.println("post dologin called");
         String view = loginPage(request, session);
         Status respStatus = Status.FAIL;
 
@@ -65,7 +53,6 @@ public class LoginController {
         if (memberDTO != null) {
             sessionMgr.create(session, Integer.toString(memberDTO.getUId()));
 
-            //saveCookieForAutoLogin(uNaverId, save, response);
 
             view = "redirect:/naver/pay";
             respStatus = Status.SUCCESS;
@@ -78,11 +65,4 @@ public class LoginController {
 
     }
 
-//    private void saveCookieForAutoLogin(String uNaverId, String save, HttpServletResponse response) {
-//        if (save == null) return;
-//
-//        if (save.equals("on")) {
-//            cookieMgr.create(response, new String[]{uNaverId, "true"});
-//        }
-//    }
 }

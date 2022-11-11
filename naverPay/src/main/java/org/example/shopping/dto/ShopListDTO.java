@@ -21,9 +21,10 @@ public class ShopListDTO {
     private String companyName;
     private String companyNamePhone;
     private int productNum;
+    private String uNaverId;
 
     @Builder
-    public ShopListDTO(int pmId, int uId, int pId, String paymentMethod, String paymentDate, String pName, int pPrice, String companyName, String companyNamePhone, int productNum) {
+    public ShopListDTO(int pmId, int uId, int pId, String paymentMethod, String paymentDate, String pName, int pPrice, String companyName, String companyNamePhone, int productNum, String uNaverId) {
         this.pmId = pmId;
         this.uId = uId;
         this.pId = pId;
@@ -34,6 +35,7 @@ public class ShopListDTO {
         this.companyName = companyName;
         this.companyNamePhone = companyNamePhone;
         this.productNum = productNum;
+        this.uNaverId = uNaverId;
     }
 
     public ShopListVO toVo() {
@@ -47,6 +49,7 @@ public class ShopListDTO {
                 .priceSum(pPrice * productNum)
                 .companyName(companyName)
                 .companyNamePhone(companyNamePhone)
+                .uNaverId(uNaverId)
                 .build();
     }
 }

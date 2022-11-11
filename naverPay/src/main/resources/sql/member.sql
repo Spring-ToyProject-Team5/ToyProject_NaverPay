@@ -15,6 +15,9 @@ CREATE TABLE MEMBER (
 
 INSERT INTO MEMBER (uNaverId, uPw, uEmail, uName, uPhone, uAddress, uPoint)  VALUES ('a','a','a','a','a','a',10);
 INSERT INTO MEMBER (uNaverId, uPw, uEmail, uName, uPhone, uAddress, uPoint)  VALUES ('b','b','b','b','b','b',20);
-
+INSERT INTO MEMBER (uNaverId, uPw, uEmail, uName, uPhone, uAddress, uPoint)
+VALUES ('Kim123', 'a', 'a', 'a', 'a', 'a', 10);
+INSERT INTO MEMBER (uNaverId, uPw, uEmail, uName, uPhone, uAddress, uPoint)
+VALUES ('Ryu333', 'b', 'b', 'b', 'b', 'b', 20);
 
 SELECT * FROM MEMBER;
