@@ -38,17 +38,6 @@ public class LoginController {
         if (session.getAttribute("SESSION_ID") != null) { // 로그인이 되어있는 상태
             return "redirect:/";
         }
-//
-//        String autoLogin = cookieMgr.get(request, "AUTO_LOGIN");
-//        String cookieId = cookieMgr.get(request, "COOKIE_ID");
-//
-//
-//        if (autoLogin != null && cookieId != null) {
-//            if (memberService.autoLogin(autoLogin, cookieId)) {
-//                sessionMgr.create(session, cookieId);
-//                view = "redirect:/";
-//            }
-//        }
         return view;
     }
 
@@ -63,7 +52,6 @@ public class LoginController {
         if (memberDTO != null) {
             sessionMgr.create(session, "SESSION_ID", uNaverId);
 
-            //saveCookieForAutoLogin(uNaverId, save, response);
 
             view = "redirect:/naver/pay";
             respStatus = Status.SUCCESS;
@@ -76,11 +64,4 @@ public class LoginController {
 
     }
 
-//    private void saveCookieForAutoLogin(String uNaverId, String save, HttpServletResponse response) {
-//        if (save == null) return;
-//
-//        if (save.equals("on")) {
-//            cookieMgr.create(response, new String[]{uNaverId, "true"});
-//        }
-//    }
 }

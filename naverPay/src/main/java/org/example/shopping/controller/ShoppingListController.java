@@ -22,9 +22,6 @@ public class ShoppingListController {
 
     @GetMapping("/pay")
     public String shoppingListPage(HttpSession session, Model model) {
-//        if (session.getAttribute("SESSION_ID") != null) { // 로그인이 되어있는 상태
-//            return "로그인 화면으로";
-//        }
         List<ShopListVO> shoppingDTOList = paymentService.getShoppingList(sessionMgr.get(session, "SESSION_ID"));
         model.addAttribute("list", shoppingDTOList);
         return "shopList";
