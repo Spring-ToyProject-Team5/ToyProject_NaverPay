@@ -33,7 +33,7 @@
 <p> 적립된 포인트: ${detail.savedPoint}</p>
 <p> 사용한 포인트: ${detail.usePoint}</p>
 
-<form action="/shop-list/detailpage-delete/${detail.pmId}" method="get">
+<form action="/naver/pay/delete/${detail.pmId}" method="get">
     <input hidden class="input-field" type="submit" name="pmId" value="${detail.pmId}"/>
     <button>삭제</button>
 </form>
