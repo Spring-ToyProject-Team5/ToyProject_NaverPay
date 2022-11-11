@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PaymentService {
+public class PaymentService implements IPaymentService {
     private PaymentDAO paymentDAO = PaymentDAO.getInstance();
 
     private static PaymentService paymentService = null;
@@ -39,6 +39,9 @@ public class PaymentService {
 
 
     public List<ShopListVO> getShoppingPeriod(String uNaverId, String date1, String date2) {
+        if (uNaverId == null) {
+            return null;
+        }
         int id = memberService.getByUserId(uNaverId).getUId();
         if (date1 == null || date2 == null) {
             return null;
@@ -51,6 +54,9 @@ public class PaymentService {
 
 
     public List<ShopListVO> getShoppingPeriod(String uNaverId, String date1, String date2, String method) {
+        if (uNaverId == null) {
+            return null;
+        }
         int id = memberService.getByUserId(uNaverId).getUId();
         if (date1 == null || date2 == null || method == null) {
             return null;
@@ -67,6 +73,9 @@ public class PaymentService {
 
 
     public List<ShopListVO> getShoppingList(String uNaverId) {
+        if (uNaverId == null) {
+            return null;
+        }
         int id = memberService.getByUserId(uNaverId).getUId();
         List<ShopListVO> shoppingList = paymentDAO.userSelectAll(id);
 

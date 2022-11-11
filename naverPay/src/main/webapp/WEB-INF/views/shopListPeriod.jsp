@@ -32,9 +32,6 @@
         <option>반품</option>
         <option>교환</option>
         <option>결제처리중오류</option>
-        <option>p</option>
-        <option>a</option>
-        <option>b</option>
     </select>
     <button>조회&#x1F50D</button>
 

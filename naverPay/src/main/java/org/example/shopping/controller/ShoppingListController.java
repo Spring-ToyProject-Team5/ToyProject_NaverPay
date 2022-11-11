@@ -1,6 +1,5 @@
 package org.example.shopping.controller;
 
-import org.example.cookies.CookieMgr;
 import org.example.sessions.SessionMgr;
 import org.example.shopping.service.PaymentService;
 import org.example.shopping.vo.ShopListVO;
@@ -19,7 +18,6 @@ import java.util.List;
 public class ShoppingListController {
 
     private SessionMgr sessionMgr = SessionMgr.getInstance();
-    private CookieMgr cookieMgr = CookieMgr.getInstance();
     private PaymentService paymentService = PaymentService.getInstance();
 
     @GetMapping("/pay")
@@ -34,7 +32,6 @@ public class ShoppingListController {
 
     @GetMapping("/shopping")
     public String shoppingPeriodSearch(HttpSession session, @RequestParam String date1, @RequestParam String date2, @RequestParam String method, Model model) { // 기간을 안 넣어도 되고 안 넣으면 디폴트값주기
-        // 기간을 받아 그 기간에 해당하는 Product를 모델에서 담아서 뷰에 넘김
         List<ShopListVO> shoppingDTOList;
         if (method.equals("전체상태")) {
             shoppingDTOList = paymentService.getShoppingPeriod(sessionMgr.get(session, "SESSION_ID"), date1, date2);

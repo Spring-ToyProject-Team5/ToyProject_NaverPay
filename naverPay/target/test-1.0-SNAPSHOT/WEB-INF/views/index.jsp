@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<h1><a href="http://localhost:8080/members/login" target=""> 5팀 페이 </a></h1>
+<h1><a href="http://localhost:8080/login" target=""> 5팀 페이 </a></h1>
 
 </body>
 </html>
