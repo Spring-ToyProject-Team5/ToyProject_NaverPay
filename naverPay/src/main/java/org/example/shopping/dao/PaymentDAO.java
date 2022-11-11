@@ -27,9 +27,9 @@ public class PaymentDAO {
 
 
     private static final String PAYMENT_DELETE = "delete from payment where pmId = ?";
-    private static final String PAYMENT_SELECT_ALL = "select * from payment join product on product.pId = payment.pId  where uId = ? order by paymentDate DESC";
-    private static final String SHOPPING_SEARCH_PERIOD = "select * from payment join product on product.pId = payment.pId where (uId = ?) and (paymentDate between ? and ?) order by paymentDate DESC";
-    private static final String SHOPPING_SEARCH_PERIOD_METHOD = "select * from payment join product on product.pId = payment.pId where uId = ? and (paymentDate between ? and ?) and (paymentMethod = ?) order by paymentDate DESC";
+    private static final String PAYMENT_SELECT_ALL = "select * from payment join product on product.pId = payment.pId join member on member.uId = payment.uId where payment.uId = ? order by paymentDate DESC";
+    private static final String SHOPPING_SEARCH_PERIOD = "select * from payment join product on product.pId = payment.pId join member on member.uId = payment.uId where (payment.uId = ?) and (paymentDate between ? and ?) order by paymentDate DESC";
+    private static final String SHOPPING_SEARCH_PERIOD_METHOD = "select * from payment join product on product.pId = payment.pId join member on member.uId = payment.uId where (payment.uId = ?) and (paymentDate between ? and ?) and (paymentMethod = ?) order by paymentDate DESC";
     private static final String SHOPLIST_DETAIL = "SELECT *\n" +
             "from payment\n" +
             "join product\n" +
@@ -124,8 +124,10 @@ public class PaymentDAO {
                 String companyName = rs.getString("pCompany");
                 String companyNamePhone = rs.getString("pCompanyPhone");
                 int productNum = rs.getInt("productNum");
+                String uNaverId = rs.getString("uNaverId");
 
-                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone, productNum));
+
+                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone, productNum, uNaverId));
             }
 
         } catch (SQLException e) {
@@ -159,8 +161,9 @@ public class PaymentDAO {
                 String companyName = rs.getString("pCompany");
                 String companyNamePhone = rs.getString("pCompanyPhone");
                 int productNum = rs.getInt("productNum");
+                String uNaverId = rs.getString("uNaverId");
 
-                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone, productNum));
+                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone, productNum, uNaverId));
             }
 
         } catch (SQLException e) {
@@ -191,8 +194,9 @@ public class PaymentDAO {
                 String companyName = rs.getString("pCompany");
                 String companyNamePhone = rs.getString("pCompanyPhone");
                 int productNum = rs.getInt("productNum");
+                String uNaverId = rs.getString("uNaverId");
 
-                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone, productNum));
+                shoppingList.add(new ShopListDTO(pmId, uId, pId, paymentMethod, paymentDate, pName, pPrice, companyName, companyNamePhone, productNum, uNaverId));
             }
 
         } catch (SQLException e) {
